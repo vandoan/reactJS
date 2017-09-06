@@ -11,18 +11,22 @@
 <script src="react.js"></script>
 <script src="js/react-dom.js"></script>
 <script>
+
 var Component = React.createClass({
 	render: function() {
-		return React.DOM.span(null, "I'm custom");
+		return React.DOM.span(null, "My name is " + this.props.name);
 	}
 });
 
 ReactDOM.render(
-// React.DOM.h1(null, "Hello world!"), document.getElementById("app")
-	React.createElement(Component),
+	React.createElement(Component, {
+		name: "Bob"
+	}),
 	document.getElementById("app")
 );
-</script>
+
+ 
+ </script>
       
 </body>
 </html>
