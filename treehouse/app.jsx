@@ -21,7 +21,6 @@ var Stopwatch = React.createClass({
 		return {
 			running: false,
 			elapsedTime: 0,
-			previousTime: 0,
 		}
 	},
 
@@ -84,7 +83,7 @@ var Stopwatch = React.createClass({
 var AddPlayerForm = React.createClass({
 	propTypes: {
 		onAdd: React.PropTypes.func.isRequired,
-	},
+	}1,
 
 	getInitialState: function(){
 		return {
