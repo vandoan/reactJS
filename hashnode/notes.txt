@@ -1,0 +1,11 @@
+mongo commands
+	show collection
+	db
+	db databases
+	db.getCollectionNames() // show all collections as a list
+	show tables
+	show collections  //output every collection // use mydatabase, show foods
+	db.collectionName.find() // db.foods.find()
+
+	mongod
+	mongo
