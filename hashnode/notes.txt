@@ -6,6 +6,11 @@ mongo commands
 	show tables
 	show collections  //output every collection // use mydatabase, show foods
 	db.collectionName.find() // db.foods.find()
+	db.collection.deleteMany({})
+	db.collection.deleteOne({})
+	db.collection.findAndModify()
+	db.collection.drop()
+	
 
 	mongod
 	mongo

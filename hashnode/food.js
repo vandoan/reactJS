@@ -13,6 +13,7 @@ MongoClient.connect(URL, function(err, db) {
 	    	console.log(docs)
 	      	db.close();  
 	});
+})
 	
   // collection.insert({name: 'taco', tasty: true}, function(err, result) {
   //   collection.find({name: 'taco'}).toArray(function(err, docs) {
@@ -20,4 +21,3 @@ MongoClient.connect(URL, function(err, db) {
   //     db.close()
   //   })
   // })
-})
