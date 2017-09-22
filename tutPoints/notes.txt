@@ -1,0 +1,8 @@
+react 
+	- typesafe
+	- components - one div to rule them all
+	- start server - npm start --hot (hot ot watch)
+	- html tags - lowercase
+	- components - uppercase
+	- class -> className
+	- for -> forName

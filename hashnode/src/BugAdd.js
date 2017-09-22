@@ -40,4 +40,4 @@ var BugAdd = React.createClass({
 
 });
 
-Module.export = BugAdd;
+module.exports = BugAdd;

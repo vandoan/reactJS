@@ -113,7 +113,7 @@ var BugList = React.createClass({
 				null,
 				'Bug Tracker'
 			),
-			React.createElement(BugFilter, null),
+			React.createElement(BugFilter),
 			React.createElement(BugTable, { bugs: this.state.bugs }),
 			React.createElement(BugAdd, { addBug: this.addBug })
 		);

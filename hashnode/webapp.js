@@ -36,6 +36,7 @@ app.post("/api/bugs/", function(req, res){
 });
 
 app.get('/api/bugs', function(req, res) {
+	console.log(req.params);
 	var collection = db.collection('bugs');
 	collection.find().toArray(function(err, docs) {
 	    	bugs = res.json(docs);
