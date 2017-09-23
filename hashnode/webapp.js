@@ -7,6 +7,7 @@ var $ = require('jquery');
 const app = express();
 var db;
 var bodyParser = require('body-parser');
+var ObjectId = require('mongodb').ObjectID;
 
 // const bugData = [
 // 	{"id": "0234", "status": "active", "priority": "moderate", "reporter": "Mahala", "title": "Broken iamge"},
@@ -15,6 +16,7 @@ var bodyParser = require('body-parser');
 
 app.use(express.static('static'));
 app.use(bodyParser.json());
+
 
 app.post("/api/bugs/", function(req, res){
 	console.log(req.body);
@@ -35,12 +37,39 @@ app.post("/api/bugs/", function(req, res){
 
 });
 
+// get single bug
+app.get('/api/bugs/:id', function(req,res) {
+	db.collection('bugs').findOne({_id: ObjectId(req.params.id)},
+		function(err,bug) {
+			res.json(bug);
+		});
+});
+
+app.put('/api/bugs/:id', function(req, res) {
+	var bug = req.body;
+	console.log("Modifying bug:", req.params.id, bug);
+	var oid = ObjectId(req.params.id);
+	db.collection("bugs").updateOne({_id: oid}, bug, function(err, result) {
+		db.collection("bugs").find({_id: oid}).next(function(err,doc) {
+			res.send(doc);
+		});
+	});
+});
+
+
+
+
 app.get('/api/bugs', function(req, res) {
-	console.log(req.params);
+	console.log("Query: ", req.query);
 	var collection = db.collection('bugs');
-	collection.find().toArray(function(err, docs) {
+	var filter = {};
+	if (req.query.priority)
+		filter.priority = req.query.priority;
+	if (req.query.status)
+		filter.status = req.query.status;
+
+	collection.find(filter).toArray(function(err, docs) {
 	    	bugs = res.json(docs);
-	    	// console.log(docs);
 	      	// db.close();  
 	});
 });

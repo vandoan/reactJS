@@ -6,6 +6,8 @@ var $ = require('jquery');
 
 var BugFilter = require('./BugFilter');
 var BugAdd = require('./BugAdd');
+var Link = require('react-router-dom').Link;
+var QueryString = require('query-string');
 
 var BugRow = React.createClass({
 	displayName: 'BugRow',
@@ -17,7 +19,11 @@ var BugRow = React.createClass({
 			React.createElement(
 				'td',
 				null,
-				this.props.bug._id
+				React.createElement(
+					Link,
+					{ to: '/bugs/' + this.props.bug._id },
+					this.props.bug._id
+				)
 			),
 			React.createElement(
 				'td',
@@ -113,19 +119,48 @@ var BugList = React.createClass({
 				null,
 				'Bug Tracker'
 			),
-			React.createElement(BugFilter),
+			React.createElement(BugFilter, { submitHandler: this.changeFilter, initFilter: this.props.location.search }),
 			React.createElement(BugTable, { bugs: this.state.bugs }),
 			React.createElement(BugAdd, { addBug: this.addBug })
 		);
 	},
 
 	componentDidMount: function componentDidMount() {
+		console.log("BugList: componentDid");
+		this.loadData({});
+		// $.ajax('/api/bugs').done((data) => {
+		// 	console.log(data);
+		// 	console.log('done');
+		// 	this.setState({bugs: data});
+		// });
+	},
+
+	componentDidUpdate: function componentDidUpdate(prevProps) {
+		var oldQuery = QueryString.parse(prevProps.location.search);
+		var newQuery = QueryString.parse(this.props.location.query);
+
+		if (oldQuery.status === newQuery.status) {
+			console.log("BugList: componentDidUpdate, no change in filter, not updating");
+			return;
+		} else {
+			console.log("BugList: compoenentDidUpate, loading with new filter");
+			this.loadData();
+		}
+	},
+
+	changeFilter: function changeFilter(newFilter) {
+		this.props.history.push({ search: '?' + $.param(newFilter) });
+		this.loadFitler(newFitler);
+	},
+
+	loadData: function loadData(filter) {
 		var _this = this;
 
-		console.log('mounting');
-		$.ajax('/api/bugs').done(function (data) {
-			console.log(data);
-			console.log('done');
+		var query = QueryString.parse(this.props.location.search) || {};
+		var filter = { priority: query.priority, status: query.status };
+
+		$.ajax('/api/bugs', { data: filter }).done(function (data) {
+			console.log('UPDATED', data);
 			_this.setState({ bugs: data });
 		});
 	},
@@ -144,11 +179,11 @@ var BugList = React.createClass({
 			dataType: "json",
 			contentType: 'application/json',
 			data: JSON.stringify(bug),
-			success: function (data) {
+			success: function success(data) {
 				var bug = data;
 				var bugsModified = this.state.bugs.concat(bug);
 				this.setState({ bugs: bugsModified });
-			}.bind(this),
+			},
 			error: function error(xhr, status, err) {
 				console.log("Error adding bug:", err);
 			}
