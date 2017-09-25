@@ -1,0 +1,14 @@
+Notes
+
+
+api keys
+  dotenv and webpack
+
+conventional to surround the replaced variable by two underscores (_
+
+karma
+
+phantomjs
+
+
+
