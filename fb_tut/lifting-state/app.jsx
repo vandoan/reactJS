@@ -1,4 +1,4 @@
-
+// https://facebook.github.io/react/docs/lifting-state-up.html#adding-a-second-input
 
 function BoilVerdict(props) {
   if (props.celsius >= 100) {
