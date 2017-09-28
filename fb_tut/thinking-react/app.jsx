@@ -67,7 +67,7 @@ class SearchBar extends React.Component {
 	}
 
 	handleFilterTextInputChange(e) {
-		this.props.onFilterTextInput(e.target.value);
+		this.props.onFilterTextChange(e.target.value);
 	}
 
 	handleInStockInputChange(e) {
@@ -104,11 +104,11 @@ class FilterableProductTable extends React.Component {
 			filterText: '',
 			inStockOnly: false
 		};
-		this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
+		this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
 		this.handleInStockInput = this.handleInStockInput.bind(this);
 	}
 
-	handleFilterTextInput(filterText) {
+	handleFilterTextChange(filterText) {
 		this.setState({
 			filterText: filterText
 		});
@@ -125,7 +125,7 @@ class FilterableProductTable extends React.Component {
 				<SearchBar
 				  filterText={this.state.filterText}
 				  inStockOnly={this.state.inStockOnly}
-				  onFilterText={this.handleFilterTextInput}
+				  onFilterTextChange={this.handleFilterTextChange}
 				  onInStockInput={this.handleInStockInput}
 				/>
 				<ProductTable 
