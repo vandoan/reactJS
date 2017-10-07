@@ -39,12 +39,27 @@ class App extends Component {
         return guest;
       })
     });
+
+
   
   toggleConfirmationAt = index => 
     this.toggleGuestPropertyAt("isConfirmed", index);
   
   toggleEditingAt = index => 
     this.toggleGuestPropertyAt("isEditing", index); 
+
+  setNameAt = (name, indexToChange) =>
+    this.setState({
+      guests: this.state.guests.map((guest, index) => {
+        if (index === indexToChange) {
+          return {
+              ...guest, // transfers all keys and values
+              name
+          };
+        }
+        return guest;
+      })
+    });
 
   getTotaleInvited = () => this.state.guests.length;
 
@@ -87,6 +102,7 @@ class App extends Component {
           guests={this.state.guests}
           toggleConfirmationAt={this.toggleConfirmationAt}
           toggleEditingAt={this.toggleEditingAt}
+          setNameAt={this.setNameAt}
           />
 
       </div>

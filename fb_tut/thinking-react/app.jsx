@@ -99,13 +99,16 @@ class SearchBar extends React.Component {
 
 class FilterableProductTable extends React.Component {
 	constructor(props){
+	
 		super(props);
 		this.state = {
 			filterText: '',
 			inStockOnly: false
 		};
-		this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+
 		this.handleInStockInput = this.handleInStockInput.bind(this);
+		this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+	
 	}
 
 	handleFilterTextChange(filterText) {
